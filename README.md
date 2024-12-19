@@ -1,0 +1,75 @@
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Step to setup 
+- yarn create vite <folder> [--template=react]
+- termiinal get inside directory
+- yarn create vite . 
+- yarn (install all the packages necessary for the react application)
+- yarn run dev (package.json > scripts > dev > "vite")
+
+## FE Architecture 
+- Whenever there is a change in url => I will load a page component
+- within a page component, there might be different sections that will linked in a page component
+- for eg. 
+- login, registration, forgetpassword, reset password, activation, logout, dashboard access
+
+
+## Input tag 
+- type => text, number, email, url, date, time, radio, checkbox, button, submit, reset, hidden, file, range, tel, password
+
+# Registration route 
+- load form page 
+- Form should include: 
+    - name, email, password, confirm password, gender(radio), role(dropdown), phone, address, image upload(input type="file")
+    `<input type="radio" name="gender" value="male" /> Male`
+    `<input type="radio" name="gender" value="female" /> Female`
+    `<input type="radio" name="gender" value="other" /> Other`
+
+    `<select name="role">`
+        `<option value="seller">Seller</option>`
+        `<option value="customer">Buyer</option>`
+    `</select>`
+    
+
+## Remaining 
+- API Integration
+- State Management tools 
+    - Redux
+- Socket programming (BE/FE)
+- Nextjs with ts 
+- Webservices 
+- Project
+
+## API CALL 
+- XHR Requuest 
+- ajax request
+- server api call
+- fetch / axios 
+- APIs are application programming Interface 
+- Website, or web application, mobile app(android, ios), desktop(PWA)
+- urls / endpoint ===> recive data (API)
+- mobile app, browser
+- Data 
+- REST API -> 5 methods => get, post, put, patch, delete
+
+
+# Data 
+- Personal Information 
+- Family tree 
+- Background 
+- address 
+
+
+### Public api (CSRF/XSRF protection)
+- no control can be called by anyone 
+- Firewall 
+
+### Private api (protected Auth Token)
+- Login and access
