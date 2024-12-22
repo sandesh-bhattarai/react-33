@@ -14,6 +14,8 @@ import authSvc from "../auth.service";
 import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { toast } from "react-toastify";
+import OTPModal from "../../../components/otp-modal/otp-modal.component";
+import { showError } from "../../../utilities/helpers";
 
 const RegisterPage = () => {
 	const [otpModel, setOtpModel] = useState(false);
@@ -32,7 +34,7 @@ const RegisterPage = () => {
 
 	const [loading, setLoading] = useState(false);
 
-	const { control, handleSubmit, setError, formState: { errors } } = useForm({
+	const { control, handleSubmit, setError, getValues, formState: { errors } } = useForm({
 		resolver: yupResolver(userRegisterDTO)
 	});
 
@@ -44,12 +46,7 @@ const RegisterPage = () => {
 			toast.success("Your account has been created. Please use the OTP code provided on your email")
 			setOtpModel(true)
 		} catch(exception) {
-			let errData = exception?.data?.data || null;
-			if(errData) {
-				Object.keys(errData).map((key) => {
-					setError(key, {message: errData[key]})
-				})
-			}
+			showError(exception, setError)
 			setLoading(false);
 		}
 	};
@@ -167,28 +164,11 @@ const RegisterPage = () => {
 				</div>
 			</div>
 
-			<Modal show={otpModel} onClose={() => setOtpModel(false)}>
-				<Modal.Header>Terms of Service</Modal.Header>
-				<Modal.Body>
-				<div className="space-y-6">
-					<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-					With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
-					companies around the world are updating their terms of service agreements to comply.
-					</p>
-					<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-					The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
-					to ensure a common set of data rights in the European Union. It requires organizations to notify users as
-					soon as possible of high-risk data breaches that could personally affect them.
-					</p>
-				</div>
-				</Modal.Body>
-				<Modal.Footer>
-				<Button onClick={() => setOtpModel(false)}>I accept</Button>
-				<Button color="gray" onClick={() => setOtpModel(false)}>
-					Decline
-				</Button>
-				</Modal.Footer>
-			</Modal>
+			<OTPModal 
+				otpModel={otpModel}
+				email={getValues('email')}
+				setOtpModel={setOtpModel}
+			/>
 		</>
 	);
 };

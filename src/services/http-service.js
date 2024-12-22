@@ -1,13 +1,14 @@
 import axiosInstance from "../config/axios.config"
 
 class HttpService {
-    config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
+    config = null;
     setConfig = (reqConfig) => {
-        
+        this.config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        console.log(reqConfig)
         if(reqConfig.file || reqConfig.files) {
             this.config = {
                 ...this.config,
@@ -40,8 +41,17 @@ class HttpService {
         }
     }
 
-    getRequest = () => {
-
+    getRequest = async(url, config=null) => {
+        try{
+            if(config) {
+                this.setConfig(config)
+            }
+            const response = await axiosInstance.get(url, this.config)
+            return response // undefined
+        } catch(exception) {
+            console.log("postRequest", exception)
+            throw exception
+        }
     }
 
     postRequest = async(url, data ={}, config=null) => {
@@ -57,8 +67,18 @@ class HttpService {
         }
     }
 
-    putRequest = () => {
-        
+    putRequest = async (url, data={}, config=null) => {
+        try {
+
+            if(config) {
+                this.setConfig(config)
+            }
+            const response = await axiosInstance.put(url, data, this.config)
+            return response;
+        } catch(exception) {
+            console.log("putRequest", exception)
+            throw exception;
+        }
     }
 
     patchRequest = () => {

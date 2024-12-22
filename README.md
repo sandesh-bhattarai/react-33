@@ -73,3 +73,32 @@ Currently, two official plugins are available:
 
 ### Private api (protected Auth Token)
 - Login and access
+
+### Cookie and localStorage or sessinStorage
+- Cookie 
+- client side storage unit
+- EU (User Policy)
+- Privacy Policy -> mention data collection, what data, usages , field 
+- a domain dependent
+- per domain max of 50 cookie 
+- per cookie 4096 characters (1 byte)
+- cookie path, time, domain depenedent 
+- when the cookie is mature, cookie will be self delete
+- document.cookie="key=value;path=/;expires=dateTimeInISO;";
+- read cookie = document.cookie
+- cookie self set on every request
+
+## LocalStorage 
+- Client Side store 
+- max of 5mb data 
+- text data only 
+- no maturity 
+- localStorage global object
+- 3 functions 
+- `localStroage.setItem('key', 'value')`
+- `localStroage.getItem('key')`
+- `localStroage.removeItem('key')`
+- `localStroage.clear()`    
+- sessionStorage
+
+- debounce => api call 

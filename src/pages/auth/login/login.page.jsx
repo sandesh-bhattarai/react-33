@@ -4,6 +4,9 @@ import { InputLabel, TextInputField } from "../../../components/form/input.compo
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NavLink } from "react-router-dom";
+import { showError } from "../../../utilities/helpers";
+import { toast } from "react-toastify";
+import authSvc from "../auth.service";
 
 const LoginPage = () => {
 	
@@ -12,20 +15,20 @@ const LoginPage = () => {
 		password: Yup.string().required()
 	});
 
-	const {control, handleSubmit,  formState: {errors}} = useForm({
+	const {control, handleSubmit, setError,  formState: {errors}} = useForm({
 		resolver: yupResolver(loginDTO)
 	})
 	
 
-	const submitEvent = (data) => {
-		// api call submit 
-		console.log(data)
-		// custom manipulate csv export 
-		let csvData = "Email,Password\n";
-		csvData += data.email+","+data.password;
-		
-		// csv download 
-		
+	const submitEvent = async(data) => {
+		try {
+			const response = await authSvc.loginUser(data);
+			toast.success("Welcome to Admin panel")
+			// 
+		} catch(exception) {
+			showError(exception, setError)
+			toast.error("Error while logging in...")
+		}
 	}
 	return (
 		<>
