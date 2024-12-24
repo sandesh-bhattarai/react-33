@@ -52,9 +52,8 @@ class AuthService extends HttpService {
             localStorage.setItem('refreshToken', response.data.data.refreshToken);
 
             //
-            // setCookie('accessToken', '', -1)
-            // console.log(getCookie('accessToken'));
-            return response;
+            let loggedinUser = await this.getLoggedInUser()
+            return loggedinUser
         } catch(exception) {
             // console.log("loginUser", exception)
             throw exception

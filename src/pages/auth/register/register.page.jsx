@@ -11,14 +11,17 @@ import { FormSubmitButtons } from "../../../components/buttons/button.component"
 import * as Yup from "yup"
 import {yupResolver} from "@hookform/resolvers/yup"
 import authSvc from "../auth.service";
-import { useState } from "react";
-import { Modal, Button } from "flowbite-react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import OTPModal from "../../../components/otp-modal/otp-modal.component";
 import { showError } from "../../../utilities/helpers";
+import AuthContext from "../../../context/auth.context";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
 	const [otpModel, setOtpModel] = useState(false);
+	const {user} = useContext(AuthContext);
+	const navigate = useNavigate()
 
 	const userRegisterDTO = Yup.object({
 		name: Yup.string().min(2).max(25).required(),
@@ -51,6 +54,11 @@ const RegisterPage = () => {
 		}
 	};
 
+	useEffect(() => {
+		if(user) {
+			navigate('/'+user.role)
+		}
+	}, [user])
 	return (
 		<>
 			<div className="my-5 flex justify-center items-center min-h-screen bg-gray-100">

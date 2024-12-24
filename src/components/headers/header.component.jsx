@@ -1,12 +1,15 @@
 import "flowbite";
-import { DarkThemeToggle, Dropdown } from "flowbite-react";
-import { FaUser } from "react-icons/fa";
-import { FaChevronDown } from "react-icons/fa6";
-import { Link, NavLink } from "react-router-dom";
+import { DarkThemeToggle } from "flowbite-react";
+import { NavLink } from "react-router-dom";
+import { ChevronDownArror, UserIcon } from "../icons/icons.component";
+import { useContext, useEffect, useState } from "react";
+import authSvc from "../../pages/auth/auth.service";
+import AuthContext from "../../context/auth.context";
 
-export const HomeHeader = ({user}) => {	// receive the data and use it props
-	// create data and store information state
-	// console.log(props.user)
+export const HomeHeader = () => {
+	
+	const {user} = useContext(AuthContext);
+	
     return (
         <nav className="bg-white dark:bg-primary-950 antialiased">
 			<div className="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
@@ -387,40 +390,11 @@ export const HomeHeader = ({user}) => {	// receive the data and use it props
 							type="button"
 							className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-900 dark:text-white"
 						>
-							<svg
-								className="w-5 h-5 me-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke="currentColor"
-									strokeWidth="2"
-									d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-								/>
-							</svg>
+							<UserIcon />
 							Account
-							<svg
-								className="w-4 h-4 text-primary-900 dark:text-white ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke="currentColor"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="m19 9-7 7-7-7"
-								/>
-							</svg>
+							<ChevronDownArror />
 						</button>
+
 						<div
 							id="userDropdown1"
 							className="hidden z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-primary-600 dark:bg-primary-700"

@@ -1,4 +1,4 @@
-import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "../pages/landing"
 import AboutUsPage from "../pages/about-us/about-us.page";
 import AllProductGridPage from "../pages/products/all-products.page";
@@ -10,6 +10,7 @@ import NotFoundPage from "../pages/errors/not-found.page";
 import LoginPage from "../pages/auth/login/login.page";
 import RegisterPage from "../pages/auth/register/register.page";
 import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "../context/auth.context";
 
 
 const router = createBrowserRouter([
@@ -60,25 +61,41 @@ const router = createBrowserRouter([
                 element: <NotFoundPage link="/admin"/>
             }
         ]
+    },
+    {
+        path:"/seller",
+        element: <UserLayoutPage role="seller" />,
+        children:[
+            {
+                index: true, 
+                element: <AdminDashboardPage />
+            },
+            {
+                path: "*",
+                element: <NotFoundPage link="/seller"/>
+            }
+        ]
     }
 ])
 
 const Routing = () => {
     return (<>
-        <ToastContainer 
-            theme="colored"
-        />
-        <RouterProvider router={router} />
-        {/* <BrowserRouter>
-            <Routes>
-            
-                <Route path="/" element={<HomePageLayout />}>
-                    <Route index element={<LandingPage />} ></Route>
-                    <Route path='about-us' element={<AboutUsPage />}></Route>
-                    <Route path="products" element={<AllProductGridPage />}></Route>
-                </Route>
-            </Routes>
-        </BrowserRouter> */}
+        <AuthProvider>
+            <ToastContainer 
+                theme="colored"
+            />
+            <RouterProvider router={router} />
+            {/* <BrowserRouter>
+                <Routes>
+                
+                    <Route path="/" element={<HomePageLayout />}>
+                        <Route index element={<LandingPage />} ></Route>
+                        <Route path='about-us' element={<AboutUsPage />}></Route>
+                        <Route path="products" element={<AllProductGridPage />}></Route>
+                    </Route>
+                </Routes>
+            </BrowserRouter> */}
+        </AuthProvider>
     </>)
 }
 

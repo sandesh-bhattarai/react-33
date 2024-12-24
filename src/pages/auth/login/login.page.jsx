@@ -3,12 +3,17 @@ import { InputLabel, TextInputField } from "../../../components/form/input.compo
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { showError } from "../../../utilities/helpers";
 import { toast } from "react-toastify";
 import authSvc from "../auth.service";
+import { useContext, useEffect } from "react";
+import AuthContext from "../../../context/auth.context";
 
 const LoginPage = () => {
+
+	const navigate = useNavigate()	// route redirect
+	const {user} = useContext(AuthContext)
 	
 	const loginDTO = Yup.object({
 		email: Yup.string().email("Invalid Email Format").required("Email is compulsory"),
@@ -23,13 +28,20 @@ const LoginPage = () => {
 	const submitEvent = async(data) => {
 		try {
 			const response = await authSvc.loginUser(data);
-			toast.success("Welcome to Admin panel")
-			// 
+			let first = response.name.split(" ").shift()
+			toast.success(`Welcome ${first}! To ${response.role} panel!!`)
+			navigate('/'+response.role)
 		} catch(exception) {
 			showError(exception, setError)
 			toast.error("Error while logging in...")
 		}
 	}
+
+	useEffect(() => {
+		if(user) {
+			navigate('/'+user.role)
+		}
+	}, [user])
 	return (
 		<>
 			<section className="bg-gray-50 dark:bg-gray-900">

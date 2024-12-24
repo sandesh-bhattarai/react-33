@@ -102,3 +102,7 @@ Currently, two official plugins are available:
 - sessionStorage
 
 - debounce => api call 
+
+## Client Side global state management 
+- Redux -> toolkit / Zustand 
+- Context hook 
