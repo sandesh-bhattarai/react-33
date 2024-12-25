@@ -106,3 +106,17 @@ Currently, two official plugins are available:
 ## Client Side global state management 
 - Redux -> toolkit / Zustand 
 - Context hook 
+
+
+## Endpoint url 
+- method 
+- baseurl 
+- payload
+    - headers, 
+    - body 
+- response 
+    - 
+
+UI ===> {email, password}
+BE => API define 
+=> request to http://abc.com/login => with post request method and {email, password} as a payload

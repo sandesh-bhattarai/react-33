@@ -59,6 +59,19 @@ class AuthService extends HttpService {
             throw exception
         }
     }
+
+    refreshToken = async () => {
+        try {
+            const response = await this.getRequest('/auth/refresh', {refresh: true});
+            localStorage.setItem('accessToken', response.data.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.data.refreshToken);
+
+            let loggedinUser = await this.getLoggedInUser()
+            return loggedinUser
+        } catch(exception) {
+            throw exception
+        }
+    }
 }
 
 const authSvc = new AuthService()

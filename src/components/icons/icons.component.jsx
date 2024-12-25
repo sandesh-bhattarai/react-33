@@ -41,15 +41,13 @@ export const ChevronDownArror = () => {
 }
 
 export const OverViewIcon =({
-    width='24px',
-    height='24px'
+    width=4,
+    height=4
 }) => {
-    let wClass = 'w-['+width+']'
-    let hClass = 'h-['+height+']'
     return (<>
         <svg
             aria-hidden={true}
-            className={`${wClass} ${hClass} text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white`}
+            className={`${'w-'+width} ${'h-'+height} text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white`}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

@@ -14,6 +14,11 @@ export const AuthProvider = ({children}) => {
             setUser(response)
         } catch(exception) {
             // 
+            if(exception.status === 410) {
+                // refresh token 
+                const response = await authSvc.refreshToken()
+                setUser(response)
+            }
         } finally {
             setLoading(false)
         }
