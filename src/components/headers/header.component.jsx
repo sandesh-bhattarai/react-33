@@ -1,10 +1,86 @@
-import "flowbite";
-import { DarkThemeToggle } from "flowbite-react";
-import { NavLink } from "react-router-dom";
+import { DarkThemeToggle, Dropdown } from "flowbite-react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ChevronDownArror, UserIcon } from "../icons/icons.component";
-import { useContext, useEffect, useState } from "react";
-import authSvc from "../../pages/auth/auth.service";
+import { useContext } from "react";
 import AuthContext from "../../context/auth.context";
+
+const DropdownLabel = () => {
+	return (<>
+	<span className="flex dark:text-white">
+	<UserIcon />
+			Account
+			<ChevronDownArror />
+	</span>
+	</>)
+}
+
+const UserProfileDropdown = () => {
+	const {user, setUser} = useContext(AuthContext);
+	const navigate = useNavigate();
+
+	return (<>
+			{
+				user ? <>
+				<Dropdown color="none" arrowIcon={false}  className="text-white" label={<DropdownLabel />}>
+					<Dropdown.Header>
+					<span className="block text-sm">{user.name}</span>
+					<span className="block truncate text-sm font-medium">{user.email}</span>
+					</Dropdown.Header>
+					<li>
+						<NavLink
+							to={'/'+user.role}
+							title=""
+							className="inline-flex text-black w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
+						>
+							{" "}
+							My Account{" "}
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							to={'/'+user.role}
+							title=""
+							onClick={(e) => {
+								e.preventDefault()
+								localStorage.removeItem('accessToken')
+								localStorage.removeItem('refreshToken')
+								setUser(null)
+								navigate('/login')
+							}}
+							className="inline-flex text-black w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
+						>
+							{" "}
+							Sign out
+						</NavLink>
+					</li>
+			  </Dropdown></> : <>
+			  <Dropdown color="none" arrowIcon={false}  className="text-white" label={<DropdownLabel />}>
+				<div className="p-2 text-sm font-medium text-primary-900 dark:text-white">
+								<NavLink
+									to="/login"
+									title=""
+									className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
+								>
+									{" "}
+									Login{" "}
+								</NavLink>
+							</div>
+							<div className="p-2 text-sm font-medium text-primary-900 dark:text-white">
+								<NavLink
+									to="/register"
+									title=""
+									className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
+								>
+									{" "}
+									Register{" "}
+								</NavLink>
+							</div>
+				</Dropdown>
+			  </>
+			}
+			</>
+								)
+}
 
 export const HomeHeader = () => {
 	
@@ -383,121 +459,8 @@ export const HomeHeader = () => {
 							</a>
 						</div>
 						
-
-						<button
-							id="userDropdownButton1"
-							data-dropdown-toggle="userDropdown1"
-							type="button"
-							className="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-900 dark:text-white"
-						>
-							<UserIcon />
-							Account
-							<ChevronDownArror />
-						</button>
-
-						<div
-							id="userDropdown1"
-							className="hidden z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-primary-600 dark:bg-primary-700"
-						>
-							{
-								(user) ? <>
-									<ul className="p-2 text-start text-sm font-medium text-primary-900 dark:text-white">
-									<li>
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											My Account{" "}
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											My Orders{" "}
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Settings{" "}
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Favourites{" "}
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Delivery Addresses{" "}
-										</a>
-									</li>
-									<li>
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Billing Data{" "}
-										</a>
-									</li>
-									</ul>
-
-									<div className="p-2 text-sm font-medium text-primary-900 dark:text-white">
-										<a
-											href="#"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Sign Out{" "}
-										</a>
-									</div>
-								</> : <>
-									<div className="p-2 text-sm font-medium text-primary-900 dark:text-white">
-										<NavLink
-											to="/login"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Login{" "}
-										</NavLink>
-									</div>
-									<div className="p-2 text-sm font-medium text-primary-900 dark:text-white">
-										<NavLink
-											to="/register"
-											title=""
-											className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"
-										>
-											{" "}
-											Register{" "}
-										</NavLink>
-									</div>
-								</>
-							}
-						</div>
+						<UserProfileDropdown />
+						
 
 						<DarkThemeToggle/>
 

@@ -120,3 +120,8 @@ Currently, two official plugins are available:
 UI ===> {email, password}
 BE => API define 
 => request to http://abc.com/login => with post request method and {email, password} as a payload
+
+
+## Content 
+- Create, Read, Update, Delete => CRUD
+- 

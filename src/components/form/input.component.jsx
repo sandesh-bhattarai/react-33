@@ -162,6 +162,13 @@ export const FileUploadField = ({
                     id={name}
                     type="file" 
                 />
+                {
+                        errMsg ? <>
+                            <span className="text-sm italic text-red-800">
+                                {errMsg}
+                            </span>
+                        </> : <></>
+                    }
             </div>
             <div className={` ${isMultiple ? 'w-full' : 'w-1/4'}`}>
                 
@@ -184,12 +191,6 @@ export const FileUploadField = ({
                 
             </div>
         </div>
-        {
-                errMsg ? <>
-                    <span className="text-sm italic text-red-800">
-                        {errMsg}
-                    </span>
-                </> : <></>
-            }
+        
     </>)
 }

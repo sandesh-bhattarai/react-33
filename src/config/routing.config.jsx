@@ -7,11 +7,14 @@ import UserLayoutPage from "../pages/layout/user-layout.page";
 import AdminDashboardPage from "../pages/dashboard/admin-dashboard.page";
 import CategoryWiseProductList from "../pages/category/category-product-list.page";
 import NotFoundPage from "../pages/errors/not-found.page";
-import LoginPage from "../pages/auth/login/login.page";
-import RegisterPage from "../pages/auth/register/register.page";
+// import LoginPage from "../pages/auth/login/login.page";
+// import RegisterPage from "../pages/auth/register/register.page";
+import Auth from "../pages/auth/"
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "../context/auth.context";
 
+import BannerListPage from "../pages/banner/banner-list.page";
+import BannerCreatePage from "../pages/banner/banner-create.page";
 
 const router = createBrowserRouter([
     {
@@ -36,11 +39,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                element: <LoginPage />
+                element: <Auth.LoginPage />
             },
             {
                 path: "/register",
-                element: <RegisterPage />
+                element: <Auth.RegisterPage />
             },
             {
                 path: "*",
@@ -55,6 +58,14 @@ const router = createBrowserRouter([
             {
                 index: true, 
                 element: <AdminDashboardPage />
+            },
+            {
+                path:"banner",
+                element: <BannerListPage />
+            },
+            {
+                path:"banner/create",
+                element: <BannerCreatePage />
             },
             {
                 path: "*",

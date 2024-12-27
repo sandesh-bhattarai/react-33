@@ -13,7 +13,7 @@ import AuthContext from "../../../context/auth.context";
 const LoginPage = () => {
 
 	const navigate = useNavigate()	// route redirect
-	const {user} = useContext(AuthContext)
+	const {user,setUser} = useContext(AuthContext)
 	
 	const loginDTO = Yup.object({
 		email: Yup.string().email("Invalid Email Format").required("Email is compulsory"),
@@ -28,6 +28,7 @@ const LoginPage = () => {
 	const submitEvent = async(data) => {
 		try {
 			const response = await authSvc.loginUser(data);
+			setUser(response)
 			let first = response.name.split(" ").shift()
 			toast.success(`Welcome ${first}! To ${response.role} panel!!`)
 			navigate('/'+response.role)
