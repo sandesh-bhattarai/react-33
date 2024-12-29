@@ -48,12 +48,13 @@ class HttpService {
             }
         }
 
-
         if(reqConfig.params) {
             this.config = {
-                ...this.config,
+                headers: {
+                    ...this.config.headers
+                },
                 params: {
-                    ...this.config, 
+                    ...this.config.params, 
                     ...reqConfig.params
                 }
             }

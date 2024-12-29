@@ -8,9 +8,12 @@ import { toast } from "react-toastify";
 import { showError } from "../../utilities/helpers";
 import bannerSvc from "./banner.service";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const BannerCreatePage = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] =useState(false);
+    
     const bannerCreateDto = Yup.object({
         title: Yup.string().min(3, "Title Should have atleast 3 characters").max(100).required("Title is required."), 
         link: Yup.string().url().required(),
@@ -23,6 +26,7 @@ const BannerCreatePage = () => {
     })
 
     const submitEvent = async(data) => {
+        setLoading(true);
         try{
             const response = await bannerSvc.createBanner(data)
             toast.success("Banner Created Successfully")
@@ -32,6 +36,8 @@ const BannerCreatePage = () => {
             if(exception.status === 400 ) {
                 showError(exception, setError)
             }
+        } finally{
+          setLoading(false)
         }
     }
   return (
@@ -103,6 +109,7 @@ const BannerCreatePage = () => {
                     </div>
 
                   <FormSubmitButtons 
+                    loading={loading}
                     showCancelBtn={true}
                     submitButtonTxt={<><FaPaperPlane className="me-2 w-4 h-4 pt-[2px]" /> Submit</>}
                     resetButtonTxt={<><FaTrash className="me-2 w-4 h-4 pt-[2px]" /> Cancel</>}
