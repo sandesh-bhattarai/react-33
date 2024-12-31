@@ -77,6 +77,7 @@ class HttpService {
 
     postRequest = async(url, data ={}, config=null) => {
         try{
+            this.config = null;
             if(config) {
                 this.setConfig(config)
             }
