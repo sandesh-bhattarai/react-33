@@ -1,22 +1,22 @@
 import HttpService from "../../services/http-service";
 
-class BannerService extends HttpService {
-    createBanner = async(data) => {
+class BrandService extends HttpService {
+    createBrand = async(data) => {
         try {
-            const response = await this.postRequest('/banner', data, {auth: true, file: true})
+            const response = await this.postRequest('/brand', data, {auth: true, file: true})
             return response
         } catch(exception) {
             throw exception
         }
     }
 
-    listAllBanners = async({
+    listAllBrands = async({
         page=1, 
         limit=10,
         keyword= null
     })  => {
         try {
-            let response = await this.getRequest('/banner', {
+            let response = await this.getRequest('/brand', {
                 auth: true,
                 params: {
                     page, 
@@ -26,31 +26,31 @@ class BannerService extends HttpService {
             })
             return response;
         } catch(exception) {
-            console.log("ListAllBanners", exception)
+            console.log("ListAllBrands", exception)
             throw exception;
         }
     }
 
-    deleteBannerById = async(bannerId) => {
+    deleteBrandById = async(brandId) => {
         try {
-            let res = await this.deleteRequest('/banner/'+bannerId, {auth: true});
+            let res = await this.deleteRequest('/brand/'+brandId, {auth: true});
             return res;
         } catch(exception) {
             throw exception;
         }
     }
 
-    getBannerById = async(bannerId) => {
+    getBrandById = async(brandId) => {
         try {
-            const res = await this.getRequest('/banner/'+bannerId, {auth: true});
+            const res = await this.getRequest('/brand/'+brandId, {auth: true});
             return res;
         } catch(exception) {
             throw exception
         }
     }
-    editBannerById = async(bannerId, data) => {
+    editBrandById = async(brandId, data) => {
         try {
-            const res = await this.putRequest('/banner/'+bannerId, data, {auth: true, file: true});
+            const res = await this.putRequest('/brand/'+brandId, data, {auth: true, file: true});
             return res;
         } catch(exception) {
             throw exception;
@@ -58,5 +58,5 @@ class BannerService extends HttpService {
     }
 } 
  
-const bannerSvc = new BannerService()
-export default bannerSvc;
+const brandSvc = new BrandService()
+export default brandSvc;

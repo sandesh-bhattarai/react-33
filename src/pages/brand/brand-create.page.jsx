@@ -12,23 +12,20 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { showError } from "../../utilities/helpers";
-import bannerSvc from "./banner.service";
+import brandSvc from "./brand.service";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const BannerCreatePage = () => {
+const BrandCreatePage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const bannerCreateDto = Yup.object({
+  const brandCreateDto = Yup.object({
     title: Yup.string()
       .min(3, "Title Should have atleast 3 characters")
       .max(100)
       .required("Title is required."),
-    link: Yup.string().url().required(),
     description: Yup.string().nullable(),
-    startDate: Yup.date().required(),
-    endDate: Yup.date().min(Yup.ref("startDate")).required(),
     status: Yup.string()
       .matches(/^(active|inactive)$/)
       .required(),
@@ -40,17 +37,17 @@ const BannerCreatePage = () => {
     setError,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(bannerCreateDto),
+    resolver: yupResolver(brandCreateDto),
   });
 
   const submitEvent = async (data) => {
     setLoading(true);
     try {
-      const response = await bannerSvc.createBanner(data);
-      toast.success("Banner Created Successfully");
-      navigate("/admin/banner");
+      const response = await brandSvc.createBrand(data);
+      toast.success("Brand Created Successfully");
+      navigate("/admin/brand");
     } catch (exception) {
-      toast.error("Banner cannot be created at this moment");
+      toast.error("Brand cannot be created at this moment");
       if (exception.status === 400) {
         showError(exception, setError);
       }
@@ -64,7 +61,7 @@ const BannerCreatePage = () => {
         <div className="mx-auto  px-4 lg:px-12">
           <div className="flex flex-row justify-between bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden my-5 p-5">
             <h1 className="text-primary-900 pt-1 text-lg font-semibold dark:text-primary-50">
-              Banner Create Page
+              Brand Create Page
             </h1>
           </div>
 
@@ -79,45 +76,8 @@ const BannerCreatePage = () => {
                         control={control}
                         name={"title"}
                         errMsg={errors?.title?.message}
-                        placeholder="Enter banner title"
+                        placeholder="Enter brand title"
                       />
-                    </div>
-
-                    <div className="sm:col-span-2">
-                      <InputLabel field={"link"} labelTxt={"Link(URL)"} />
-                      <TextInputField
-                        control={control}
-                        type="url"
-                        name={"link"}
-                        errMsg={errors?.link?.message}
-                        placeholder="Enter banner link"
-                      />
-                    </div>
-
-                    <div className="flex justify-between gap-4 sm:col-span-2">
-                      <div className="w-full">
-                        <InputLabel
-                          field={"startDate"}
-                          labelTxt={"StartDate"}
-                        />
-                        <TextInputField
-                          control={control}
-                          type="date"
-                          name={"startDate"}
-                          errMsg={errors?.startDate?.message}
-                          placeholder="Enter banner startDate"
-                        />
-                      </div>
-                      <div className="w-full">
-                        <InputLabel field={"endDate"} labelTxt={"End Date"} />
-                        <TextInputField
-                          control={control}
-                          type="date"
-                          name={"endDate"}
-                          errMsg={errors?.endDate?.message}
-                          placeholder="Enter banner endDate"
-                        />
-                      </div>
                     </div>
 
                     <div className="sm:col-span-2">
@@ -181,4 +141,4 @@ const BannerCreatePage = () => {
   );
 };
 
-export default BannerCreatePage;
+export default BrandCreatePage;

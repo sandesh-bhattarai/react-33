@@ -63,7 +63,7 @@ class AuthService extends HttpService {
     refreshToken = async () => {
         try {
             const response = await this.getRequest('/auth/refresh', {refresh: true});
-            localStorage.setItem('accessToken', response.data.data.accessToken);
+            localStorage.setItem('accessToken', response.data.data.token);
             localStorage.setItem('refreshToken', response.data.data.refreshToken);
 
             let loggedinUser = await this.getLoggedInUser()

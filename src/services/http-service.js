@@ -64,6 +64,7 @@ class HttpService {
     // {auth: true}
     getRequest = async(url, config=null) => {
         try{
+            this.config = {};
             if(config) {
                 this.setConfig(config)
             }
@@ -91,7 +92,7 @@ class HttpService {
 
     putRequest = async (url, data={}, config=null) => {
         try {
-
+            this.config = null
             if(config) {
                 this.setConfig(config)
             }
@@ -107,8 +108,18 @@ class HttpService {
         
     }
 
-    deleteRequest = () => {
-        
+    deleteRequest = async(url, config=null) => {
+        try{
+            this.config = {};
+            if(config) {
+                this.setConfig(config)
+            }
+            const response = await axiosInstance.delete(url, this.config)
+            return response // undefined
+        } catch(exception) {
+            console.log("getRequest", exception)
+            throw exception
+        }
     }
 }
 

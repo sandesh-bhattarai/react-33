@@ -96,7 +96,7 @@ const RegisterPage = () => {
           <form onSubmit={handleSubmit(submitEvent)}>
             {/* Name */}
             <div className="mb-4">
-              <InputLabel field={"name"} labelTxt={"Name: "} />
+              <InputLabel field={"fullName"} labelTxt={"Name: "} />
               <TextInputField
                 control={control}
                 name={"fullName"}

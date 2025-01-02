@@ -3,13 +3,13 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RowSkeleton } from "../../components/table/skeleton.component";
 import { toast } from "react-toastify";
-import bannerSvc from "./banner.service";
+import brandSvc from "./brand.service";
 import { FaPen, FaTrash } from "react-icons/fa";
 import TablePagination from "../../components/table/pagination.component";
 
 import Swal from "sweetalert2";
 
-const BannerListPage = () => {
+const BrandListPage = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(null);
@@ -21,7 +21,7 @@ const BannerListPage = () => {
   });
   const dataList = async ({ page = 1 }) => {
     try {
-      let response = await bannerSvc.listAllBanners({
+      let response = await brandSvc.listAllBrands({
         limit: 10,
         page: page,
         keyword: search,
@@ -37,7 +37,7 @@ const BannerListPage = () => {
       });
     } catch (exception) {
       console.log(exception);
-      toast.error("Error fetching banner data...");
+      toast.error("Error fetching brand data...");
     } finally {
       setLoading(false);
     }
@@ -56,7 +56,7 @@ const BannerListPage = () => {
     dataList({ page: 1 });
   }, []);
 
-  const deleteBanner = async (id) => {
+  const deleteBrand = async (id) => {
     try {
       const result = await Swal.fire({
         title: "Are you sure?",
@@ -68,8 +68,8 @@ const BannerListPage = () => {
         confirmButtonText: "Yes, delete it!",
       });
       if (result.isConfirmed) {
-        await bannerSvc.deleteBannerById(id);
-        toast.success("Banner deleted successfully");
+        await brandSvc.deleteBrandById(id);
+        toast.success("Brand deleted successfully");
         dataList({ page: 1 });
       }
     } catch (exception) {
@@ -83,15 +83,15 @@ const BannerListPage = () => {
         <div className="mx-auto  px-4 lg:px-12">
           <div className="flex flex-row justify-between bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden my-5 p-5">
             <h1 className="text-primary-900 pt-1 text-lg font-semibold dark:text-primary-50">
-              Banner List Page
+              Brand List Page
             </h1>
             <div>
               <NavLink
-                to="/admin/banner/create"
+                to="/admin/brand/create"
                 className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
               >
                 <PlusIcon />
-                Add Banner
+                Add Brand
               </NavLink>
             </div>
           </div>
@@ -165,11 +165,15 @@ const BannerListPage = () => {
                             </th>
                             <td className="px-4 py-3">
                               <a
-                                href={row.link}
-                                target="_banner"
-                                className="text-teal-700 hover:underline"
+                                href={
+                                  import.meta.env.VITE_APP_URL +
+                                  "/brand/" +
+                                  row.slug
+                                }
+                                target="_brand"
+                                className="text-teal-700 hover:underline hover:cursor-pointer"
                               >
-                                {row.link}
+                                {row.slug}
                               </a>
                             </td>
                             <td className="px-4 py-3">
@@ -180,7 +184,7 @@ const BannerListPage = () => {
                                     : "bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
                                 }`}
                               >
-                                {row.status === "acitve"
+                                {row.status === "active"
                                   ? "Publish"
                                   : "Un-Publish"}
                               </span>
@@ -190,7 +194,7 @@ const BannerListPage = () => {
                             </td>
                             <td className="px-4 py-3 flex items-center justify-end">
                               <NavLink
-                                to={"/admin/banner/" + row._id}
+                                to={"/admin/brand/" + row._id}
                                 className={
                                   "bg-teal-800 w-10 h-10 flex items-center justify-center rounded-full hover:bg-teal-700 me-3"
                                 }
@@ -199,10 +203,10 @@ const BannerListPage = () => {
                               </NavLink>
 
                               <NavLink
-                                to={"/admin/banner/" + row._id}
+                                to={"/admin/brand/" + row._id}
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  deleteBanner(row._id);
+                                  deleteBrand(row._id);
                                 }}
                                 className={
                                   "bg-red-800 w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-700 me-3"
@@ -238,4 +242,4 @@ const BannerListPage = () => {
   );
 };
 
-export default BannerListPage;
+export default BrandListPage;
