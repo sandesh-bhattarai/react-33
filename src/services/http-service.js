@@ -82,6 +82,7 @@ class HttpService {
             if(config) {
                 this.setConfig(config)
             }
+            // console.log(this.config);
             const response = await axiosInstance.post(url, data, this.config)
             return response // undefined
         } catch(exception) {

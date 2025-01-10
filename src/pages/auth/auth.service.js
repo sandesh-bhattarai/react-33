@@ -15,6 +15,7 @@ class AuthService extends HttpService {
     activateUsingOTP = async (data) => {
         try{
             const result = await this.postRequest('auth/activate', data)
+            //
             return result;
         } catch(exception) {
             console.log("registerUser", exception)

@@ -21,6 +21,12 @@ import BrandListPage from "../pages/brand/brand-list.page";
 import BrandCreatePage from "../pages/brand/brand-create.page";
 import BrandEditPage from "../pages/brand/brand-edit.page";
 
+import { useDispatch } from "react-redux";
+import { catListAll, hello } from "../reducers/category.reducer";
+
+import CategoryListPage from "../pages/category/category-list.page";
+import CategoryCreatePage from "../pages/category/category-create.page";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -88,6 +94,19 @@ const router = createBrowserRouter([
         path: "brand/:id",
         element: <BrandEditPage />,
       },
+
+      {
+        path: "category",
+        element: <CategoryListPage />,
+      },
+      {
+        path: "category/create",
+        element: <CategoryCreatePage />,
+      },
+      // {
+      //   path: "brand/:id",
+      //   element: <BrandEditPage />,
+      // },
       {
         path: "*",
         element: <NotFoundPage link="/admin" />,
@@ -111,6 +130,10 @@ const router = createBrowserRouter([
 ]);
 
 const Routing = () => {
+  // category=> hello()
+  const dispatch = useDispatch();
+  dispatch(catListAll({ page: 1 }));
+  // dispatch(hello("I am there"));
   return (
     <>
       <AuthProvider>
