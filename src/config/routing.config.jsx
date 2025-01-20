@@ -26,6 +26,7 @@ import { catListAll, hello } from "../reducers/category.reducer";
 
 import CategoryListPage from "../pages/category/category-list.page";
 import CategoryCreatePage from "../pages/category/category-create.page";
+import ChatListPage from "../pages/chat/chat-list.page";
 
 const router = createBrowserRouter([
   {
@@ -103,15 +104,20 @@ const router = createBrowserRouter([
         path: "category/create",
         element: <CategoryCreatePage />,
       },
-      // {
-      //   path: "brand/:id",
-      //   element: <BrandEditPage />,
-      // },
+
+      {
+        path: "chat",
+        element: <ChatListPage />,
+      },
       {
         path: "*",
         element: <NotFoundPage link="/admin" />,
       },
     ],
+  },
+  {
+    path: "customer",
+    element: <ChatListPage />,
   },
   {
     path: "/seller",

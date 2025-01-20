@@ -123,8 +123,7 @@ Currently, two official plugins are available:
 - payload
   - headers,
   - body
-- response
-  -
+- ## response
 
 UI ===> {email, password}
 BE => API define
@@ -137,3 +136,13 @@ BE => API define
 - Read => get
 - Update => put/patch
 - Delete => delete
+
+## Web develop 3 project
+
+- API (any server side language you prefer)
+- FE
+
+  - website
+  - cms
+
+- UI elements after login ==> no need to do SEO
